@@ -14,24 +14,25 @@
     theme: {
       extend: {
         colors: {
-          page: "#F3F4EF",
-          surface: "#FFFFFF",
-          ink: "#15181D",
-          "ink-soft": "#565B62",
-          "ink-faint": "#8A8F87",
-          accent: "#1E8E5A",
-          "accent-soft": "#E4F2E9",
-          link: "#3452D9",
-          "link-soft": "#E7EAFB",
-          line: "#DDE1D8",
-          "line-strong": "#C7CCBF",
+          bg: "#0B0B0C",
+          surface: "#161618",
+          "surface-alt": "#1D1D20",
+          ink: "#F5F5F0",
+          "ink-soft": "#9C9C97",
+          "ink-faint": "#6B6B67",
+          accent: "#8C93FF",
+          "accent-soft": "rgba(140,147,255,0.12)",
+          ok: "#4ADE80",
+          "ok-soft": "rgba(74,222,128,0.12)",
+          line: "rgba(255,255,255,0.08)",
+          "line-strong": "rgba(255,255,255,0.16)",
         },
         fontFamily: {
           display: ["'Space Grotesk'", "sans-serif"],
           mono: ["'IBM Plex Mono'", "monospace"],
           sans: ["'Inter'", "sans-serif"],
         },
-        maxWidth: { page: "920px" },
+        maxWidth: { page: "1100px" },
         keyframes: { blink: { "50%": { opacity: "0" } } },
         animation: { blink: "blink 1.1s step-end infinite" },
       },
@@ -40,197 +41,164 @@
 </script>
 <style>
   html { scroll-behavior: smooth; }
-  ::selection { background: #E4F2E9; color: #15181D; }
+  ::selection { background: rgba(140,147,255,0.25); color: #F5F5F0; }
+  body { background-image: radial-gradient(circle at 15% 0%, rgba(140,147,255,0.08), transparent 40%); }
   .section-label::before { content: "// "; }
-  .cat::before { content: "// "; color: #8A8F87; }
+  .cat::before { content: "// "; color: #6B6B67; }
+  .bento { background: #161618; border: 1px solid rgba(255,255,255,0.08); }
+  .bento:hover { border-color: rgba(255,255,255,0.16); }
 </style>
 </head>
-<body class="bg-page text-ink font-sans antialiased">
+<body class="bg-bg text-ink font-sans antialiased">
 
-<header class="sticky top-0 z-50 bg-page/90 backdrop-blur-sm border-b border-line">
-  <nav class="max-w-page mx-auto px-6 py-4 flex items-center justify-between relative">
-    <div class="font-mono text-[15px] font-medium">swantin<span class="text-ink-faint">.</span>mathew<span class="text-ink-faint">()</span></div>
-    <div id="navLinks" class="hidden md:flex items-center gap-7 text-sm font-medium absolute md:static top-full left-0 right-0 md:top-auto flex-col md:flex-row items-start md:items-center bg-page md:bg-transparent border-b md:border-0 border-line px-6 md:px-0 py-5 md:py-0 gap-4 md:gap-7">
-      <a href="#about" class="text-ink-soft hover:text-ink transition-colors">About</a>
-      <a href="#skills" class="text-ink-soft hover:text-ink transition-colors">Skills</a>
-      <a href="#work" class="text-ink-soft hover:text-ink transition-colors">Work</a>
-      <a href="#contact" class="text-ink-soft hover:text-ink transition-colors">Contact</a>
-      <a href="Resume.pdf" class="bg-ink text-page px-4 py-2 rounded-[10px] text-[13px] font-medium font-mono hover:opacity-85 transition-opacity">Resume ↗</a>
-    </div>
-    <button id="navToggle" aria-label="Toggle menu" class="md:hidden flex items-center justify-center w-9 h-9 border border-line-strong rounded-lg">
-      <span class="relative block w-4 h-0.5 bg-ink before:content-[''] before:absolute before:w-4 before:h-0.5 before:bg-ink before:-top-[5px] after:content-[''] after:absolute after:w-4 after:h-0.5 after:bg-ink after:top-[5px]"></span>
-    </button>
-  </nav>
-</header>
+<div class="max-w-page mx-auto px-6 pt-6">
+  <header class="sticky top-6 z-50 bento rounded-2xl">
+    <nav class="px-6 py-3.5 flex items-center justify-between relative">
+      <div class="font-mono text-[15px] font-medium">swantin<span class="text-ink-faint">.</span>mathew<span class="text-ink-faint">()</span></div>
+      <div id="navLinks" class="hidden md:flex items-center gap-7 text-sm font-medium absolute md:static top-full left-0 right-0 md:top-auto flex-col md:flex-row items-start md:items-center bg-surface md:bg-transparent border-b md:border-0 border-line px-6 md:px-0 py-5 md:py-0 gap-4 md:gap-7 rounded-b-2xl">
+        <a href="#about" class="text-ink-soft hover:text-ink transition-colors">About</a>
+        <a href="#skills" class="text-ink-soft hover:text-ink transition-colors">Skills</a>
+        <a href="#work" class="text-ink-soft hover:text-ink transition-colors">Work</a>
+        <a href="#contact" class="text-ink-soft hover:text-ink transition-colors">Contact</a>
+        <a href="Resume.pdf" class="bg-ink text-bg px-4 py-2 rounded-[10px] text-[13px] font-medium font-mono hover:opacity-85 transition-opacity">Resume ↗</a>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-lg border border-line-strong hover:border-ink transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-[14px] h-[14px]"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-lg border border-line-strong hover:border-ink transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-[14px] h-[14px]"><path d="M5.03 5a2.03 2.03 0 1 1-4.06 0 2.03 2.03 0 0 1 4.06 0ZM1.35 8.9h7.2V22h-7.2V8.9Zm7.2 0h6.9v1.8h.1c.96-1.7 3.3-2.2 5.2-2.2 5.6 0 6.6 3.5 6.6 8V22h-7.2v-5.7c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V22H8.55V8.9Z"/></svg>
+        </a>
+      </div>
+      <button id="navToggle" aria-label="Toggle menu" class="md:hidden flex items-center justify-center w-9 h-9 border border-line-strong rounded-lg">
+        <span class="relative block w-4 h-0.5 bg-ink before:content-[''] before:absolute before:w-4 before:h-0.5 before:bg-ink before:-top-[5px] after:content-[''] after:absolute after:w-4 after:h-0.5 after:bg-ink after:top-[5px]"></span>
+      </button>
+    </nav>
+  </header>
+</div>
 
-<main>
-  <section class="max-w-page mx-auto px-6 pt-24 pb-18">
-    <p class="font-mono text-[13px] text-accent mb-5 flex items-center">swantin@portfolio:~$ whoami<span class="inline-block w-2 h-[15px] bg-accent ml-0.5 animate-blink"></span></p>
-    <h1 class="font-display font-semibold tracking-tight text-[clamp(36px,6vw,56px)] leading-[1.08] mb-3.5">Swantin Mathew</h1>
-    <p class="text-[clamp(16px,2.4vw,19px)] text-ink-soft font-medium mb-6">Computer Science Undergraduate · Full-Stack Developer · AI Enthusiast</p>
-    <p class="max-w-[600px] text-ink-soft mb-9">I'm a B.Tech Computer Science student passionate about full-stack development, AI-powered applications, and problem solving. I enjoy building projects that combine clean user experiences with intelligent backend systems.</p>
+<main class="max-w-page mx-auto px-6 pt-6 pb-24">
 
-    <div class="flex flex-wrap gap-3 mb-10">
-      <a href="#work" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium bg-ink text-page border border-ink hover:opacity-88 hover:-translate-y-px transition-all">View my work</a>
-      <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-[15px] h-[15px] shrink-0"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-        GitHub
-      </a>
-      <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-[15px] h-[15px] shrink-0"><path d="M5.03 5a2.03 2.03 0 1 1-4.06 0 2.03 2.03 0 0 1 4.06 0ZM1.35 8.9h7.2V22h-7.2V8.9Zm7.2 0h6.9v1.8h.1c.96-1.7 3.3-2.2 5.2-2.2 5.6 0 6.6 3.5 6.6 8V22h-7.2v-5.7c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V22H8.55V8.9Z"/></svg>
-        LinkedIn
-      </a>
-    </div>
-
-    <div class="flex flex-wrap gap-2">
-      <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface border border-line text-ink-soft">Software Development Internships</span>
-      <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface border border-line text-ink-soft">Backend Development</span>
-      <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface border border-line text-ink-soft">Full Stack Development</span>
-      <span class="font-mono text-xs px-3 py-1.5 rounded-full bg-surface border border-line text-ink-soft">AI Applications</span>
-    </div>
-  </section>
-
-  <section id="about" class="fade border-t border-line py-16">
-    <div class="max-w-page mx-auto px-6">
-      <p class="section-label font-mono text-xs text-ink-faint mb-2">about</p>
-      <h2 class="font-display font-semibold text-[26px] mb-7">About</h2>
-      <div class="max-w-[640px] text-ink-soft space-y-3.5">
-        <p>I'm a Computer Science undergraduate at Government Model Engineering College, Kochi, with a strong interest in full-stack web development, artificial intelligence, and software engineering. I enjoy building practical applications that combine modern web technologies with AI to solve real-world problems.</p>
-        <p>I enjoy turning ideas into real software products — whether it's integrating APIs, designing intuitive interfaces, or building backend logic, I like understanding how complete systems work. Outside of academics, I spend time improving my problem-solving skills through competitive programming and exploring new technologies in AI and web development.</p>
+  <!-- About: single container, terminal block left / text right — like reference's photo+text About card -->
+  <section id="about" class="bento rounded-3xl overflow-hidden mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-[280px_1fr]">
+      <div class="bg-surface-alt border-b md:border-b-0 md:border-r border-line px-6 py-8 flex flex-col justify-center">
+        <p class="font-mono text-[12px] text-accent mb-4 flex items-center">swantin@portfolio:~$ whoami<span class="inline-block w-2 h-[13px] bg-accent ml-0.5 animate-blink"></span></p>
+        <h1 class="font-display font-semibold tracking-tight text-[26px] leading-[1.12] mb-1">Swantin Mathew</h1>
+        <p class="text-[13px] text-ink-soft font-medium">Full-Stack Developer</p>
+        <p class="text-[13px] text-ink-faint mb-6">AI Enthusiast · CS Undergrad</p>
+        <div class="flex gap-2.5">
+          <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-lg border border-line-strong hover:border-ink transition-colors">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-[14px] h-[14px]"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+          </a>
+          <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-lg border border-line-strong hover:border-ink transition-colors">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-[14px] h-[14px]"><path d="M5.03 5a2.03 2.03 0 1 1-4.06 0 2.03 2.03 0 0 1 4.06 0ZM1.35 8.9h7.2V22h-7.2V8.9Zm7.2 0h6.9v1.8h.1c.96-1.7 3.3-2.2 5.2-2.2 5.6 0 6.6 3.5 6.6 8V22h-7.2v-5.7c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V22H8.55V8.9Z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="px-7 py-8">
+        <p class="section-label font-mono text-xs text-ink-faint mb-2">about</p>
+        <h2 class="font-display font-semibold text-[22px] mb-4">About Me</h2>
+        <div class="text-ink-soft text-[15px] space-y-3 mb-6">
+          <p>I'm a Computer Science undergraduate at Government Model Engineering College, Kochi, with a strong interest in full-stack web development, artificial intelligence, and software engineering. I enjoy building practical applications that combine modern web technologies with AI to solve real-world problems.</p>
+          <p>I enjoy turning ideas into real software products — whether it's integrating APIs, designing intuitive interfaces, or building backend logic, I like understanding how complete systems work.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="text-[12px] px-3 py-1.5 bg-surface-alt border border-line rounded-full text-ink-soft">Software Development Internships</span>
+          <span class="text-[12px] px-3 py-1.5 bg-surface-alt border border-line rounded-full text-ink-soft">Backend Development</span>
+          <span class="text-[12px] px-3 py-1.5 bg-surface-alt border border-line rounded-full text-ink-soft">Full Stack Development</span>
+          <span class="text-[12px] px-3 py-1.5 bg-surface-alt border border-line rounded-full text-ink-soft">AI Applications</span>
+        </div>
+        <a href="#work" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium bg-ink text-bg hover:opacity-88 hover:-translate-y-px transition-all">View my work</a>
       </div>
     </div>
   </section>
 
-  <section id="skills" class="fade border-t border-line py-16">
-    <div class="max-w-page mx-auto px-6">
-      <p class="section-label font-mono text-xs text-ink-faint mb-2">skills</p>
-      <h2 class="font-display font-semibold text-[26px] mb-7">Skills</h2>
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">languages</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Java</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Python</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">JavaScript</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">SQL</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">C</span>
-          </div>
+  <!-- Work (left, tall) + Skills / Learning (right, stacked) — mirrors reference's Projects | Skills+Resume grid -->
+  <section class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
+    <div id="work" class="md:col-span-7 bento rounded-3xl overflow-hidden flex flex-col">
+      <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-4 border-b border-line bg-surface-alt">
+        <span class="font-mono text-xs text-ink-faint">Submission #01 — CP Coach</span>
+        <span class="verdict font-mono text-xs font-medium px-3 py-1 rounded-full bg-ok-soft text-ok inline-flex items-center gap-1.5">Accepted</span>
+      </div>
+      <div class="px-6 pt-7 pb-6">
+        <p class="section-label font-mono text-xs text-ink-faint mb-2">featured project</p>
+        <h3 class="font-display font-semibold text-[22px] mb-1">CP Coach</h3>
+        <p class="text-ink-soft text-sm mb-4.5">AI-powered competitive programming analytics platform</p>
+        <p class="text-ink-soft text-[15px] mb-5.5">CP Coach is a full-stack web application that analyzes Codeforces profiles using real-time API integration and AI-powered insights. It evaluates user performance through contest history, rating progression, topic-wise strengths and weaknesses, success rate, and consistency score — and includes an AI-driven profile comparison module that compares two competitive programmers and generates intelligent summaries and study plans using Google's Gemini API.</p>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">React.js</span>
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Node.js</span>
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Express.js</span>
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Gemini API</span>
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Codeforces API</span>
+          <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">REST APIs</span>
         </div>
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">frontend</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">React.js</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">HTML5</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">CSS3</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Tailwind CSS</span>
-          </div>
+
+        <div class="grid grid-cols-1 gap-2.5 mb-6.5">
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>Real-time Codeforces profile analysis</div>
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>AI-generated performance insights</div>
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>Profile comparison between users</div>
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>Topic-wise strength and weakness analysis</div>
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>Personalized study recommendations</div>
+          <div class="flex items-start gap-2.5 text-sm text-ink-soft"><span class="font-mono text-[13px] text-ok mt-px">✓</span>Responsive, modern UI</div>
         </div>
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">backend</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Node.js</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Express.js</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">REST APIs</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Axios</span>
-          </div>
-        </div>
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">ai & apis</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Gemini API</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Prompt Engineering</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Codeforces API</span>
-          </div>
-        </div>
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">databases</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">MySQL</span>
-          </div>
-        </div>
-        <div class="bg-surface border border-line rounded-xl px-5 py-4.5">
-          <p class="cat font-mono text-xs text-link mb-3">tools</p>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Git</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">GitHub</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">VS Code</span>
-            <span class="text-[13px] px-2.5 py-1 bg-page border border-line rounded-md">Postman</span>
-          </div>
+
+        <div class="flex gap-3 flex-wrap pt-4 border-t border-line">
+          <a href="https://github.com/swantinmathew/cp-coach" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-[15px] h-[15px] shrink-0"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+            View code
+          </a>
         </div>
       </div>
     </div>
-  </section>
-
-  <section id="work" class="fade border-t border-line py-16">
-    <div class="max-w-page mx-auto px-6">
-      <p class="section-label font-mono text-xs text-ink-faint mb-2">featured project</p>
-      <h2 class="font-display font-semibold text-[26px] mb-7">Work</h2>
-
-      <div class="bg-surface border border-line rounded-2xl overflow-hidden">
-        <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-4 border-b border-line bg-page">
-          <span class="font-mono text-xs text-ink-faint">Submission #01 — CP Coach</span>
-          <span class="verdict font-mono text-xs font-medium px-3 py-1 rounded-full bg-accent-soft text-accent inline-flex items-center gap-1.5">Accepted</span>
+    <div class="md:col-span-5 flex flex-col gap-4">
+      <div id="skills" class="bento rounded-3xl px-6 py-6">
+        <p class="section-label font-mono text-xs text-ink-faint mb-2">skills</p>
+        <h2 class="font-display font-semibold text-[20px] mb-4">Skills</h2>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Java</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Python</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">JavaScript</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">SQL</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">React.js</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Tailwind CSS</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Node.js</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Express.js</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">REST APIs</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Gemini API</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">MySQL</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Git</span>
+          <span class="text-[13px] px-2.5 py-1 bg-surface-alt border border-line rounded-md text-ink-soft">Postman</span>
         </div>
-        <div class="px-6 pt-7 pb-6">
-          <h3 class="font-display font-semibold text-[22px] mb-1">CP Coach</h3>
-          <p class="text-ink-soft text-sm mb-4.5">AI-powered competitive programming analytics platform</p>
-          <p class="text-ink-soft text-[15px] max-w-[660px] mb-5.5">CP Coach is a full-stack web application that analyzes Codeforces profiles using real-time API integration and AI-powered insights. It evaluates user performance through contest history, rating progression, topic-wise strengths and weaknesses, success rate, and consistency score — and includes an AI-driven profile comparison module that compares two competitive programmers and generates intelligent summaries and study plans using Google's Gemini API.</p>
-
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">React.js</span>
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Node.js</span>
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Express.js</span>
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Gemini API</span>
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">Codeforces API</span>
-            <span class="font-mono text-xs px-2.5 py-1 border border-line rounded-md text-ink-soft">REST APIs</span>
-          </div>
-
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-5 gap-y-2.5 mb-6.5">
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>Real-time Codeforces profile analysis</div>
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>AI-generated performance insights</div>
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>Profile comparison between users</div>
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>Topic-wise strength and weakness analysis</div>
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>Personalized study recommendations</div>
-            <div class="flex items-start gap-2.5 text-sm"><span class="font-mono text-[13px] text-accent mt-px">✓</span>Responsive, modern UI</div>
-          </div>
-
-          <div class="flex gap-3 flex-wrap pt-4 border-t border-line">
-            <a href="https://github.com/swantinmathew/cp-coach" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-[15px] h-[15px] shrink-0"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-              View code
-            </a>
-          </div>
+      </div>
+      <div id="learning" class="bento rounded-3xl px-6 py-6">
+        <p class="section-label font-mono text-xs text-ink-faint mb-2">currently learning</p>
+        <h2 class="font-display font-semibold text-[18px] mb-4">In progress</h2>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-center gap-3 text-[13px] text-ink-soft"><span class="w-3.5 h-3.5 border-[1.5px] border-line-strong rounded shrink-0"></span>Data Structures &amp; Algorithms</div>
+          <div class="flex items-center gap-3 text-[13px] text-ink-soft"><span class="w-3.5 h-3.5 border-[1.5px] border-line-strong rounded shrink-0"></span>System Design Fundamentals</div>
+          <div class="flex items-center gap-3 text-[13px] text-ink-soft"><span class="w-3.5 h-3.5 border-[1.5px] border-line-strong rounded shrink-0"></span>Machine Learning</div>
+          <div class="flex items-center gap-3 text-[13px] text-ink-soft"><span class="w-3.5 h-3.5 border-[1.5px] border-line-strong rounded shrink-0"></span>Advanced React</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="learning" class="fade border-t border-line py-16">
-    <div class="max-w-page mx-auto px-6">
-      <p class="section-label font-mono text-xs text-ink-faint mb-2">currently learning</p>
-      <h2 class="font-display font-semibold text-[26px] mb-7">In progress</h2>
-      <div class="flex flex-col gap-3 max-w-[480px]">
-        <div class="flex items-center gap-3 text-[15px] text-ink-soft"><span class="w-4 h-4 border-[1.5px] border-line-strong rounded shrink-0"></span>Data Structures &amp; Algorithms</div>
-        <div class="flex items-center gap-3 text-[15px] text-ink-soft"><span class="w-4 h-4 border-[1.5px] border-line-strong rounded shrink-0"></span>System Design Fundamentals</div>
-        <div class="flex items-center gap-3 text-[15px] text-ink-soft"><span class="w-4 h-4 border-[1.5px] border-line-strong rounded shrink-0"></span>Machine Learning</div>
-        <div class="flex items-center gap-3 text-[15px] text-ink-soft"><span class="w-4 h-4 border-[1.5px] border-line-strong rounded shrink-0"></span>Advanced React</div>
-      </div>
+  <!-- Contact -->
+  <section id="contact" class="bento rounded-3xl px-7 py-9">
+    <p class="section-label font-mono text-xs text-ink-faint mb-2">contact</p>
+    <h2 class="font-display font-semibold text-[24px] mb-4">Get in touch</h2>
+    <p class="text-ink-soft text-[15px] max-w-[520px]">Open to software development internships and full-stack / backend roles. Reach out directly or find me on the links below.</p>
+    <div class="flex flex-wrap gap-3 mt-5">
+      <a href="mailto:swantinjomathew.mec@gmail.com" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium bg-ink text-bg hover:opacity-88 hover:-translate-y-px transition-all">Email me</a>
+      <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">LinkedIn</a>
+      <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">GitHub</a>
+      <a href="Resume.pdf" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">Resume ↗</a>
     </div>
   </section>
 
-  <section id="contact" class="fade border-t border-line py-16">
-    <div class="max-w-page mx-auto px-6">
-      <p class="section-label font-mono text-xs text-ink-faint mb-2">contact</p>
-      <h2 class="font-display font-semibold text-[26px] mb-7">Get in touch</h2>
-      <p class="text-ink-soft max-w-[520px]">Open to software development internships and full-stack / backend roles. Reach out directly or find me on the links below.</p>
-      <div class="flex flex-wrap gap-3 mt-5">
-        <a href="mailto:swantinjomathew.mec@gmail.com" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium bg-ink text-page border border-ink hover:opacity-88 hover:-translate-y-px transition-all">Email me</a>
-        <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">LinkedIn</a>
-        <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">GitHub</a>
-        <a href="Resume.pdf" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-px transition-all">Resume ↗</a>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="max-w-page mx-auto px-6 py-8 pb-12 border-t border-line flex items-center justify-between flex-wrap gap-3">
@@ -243,14 +211,6 @@
   const links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('hidden'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.add('hidden')));
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('opacity-100', 'translate-y-0'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade').forEach(el => {
-    el.classList.add('opacity-0', 'translate-y-3.5', 'transition-all', 'duration-500');
-    io.observe(el);
-  });
 </script>
 
 </body>
