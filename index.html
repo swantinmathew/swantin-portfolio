@@ -53,9 +53,206 @@
     opacity: 0.5;
     margin-right: 0.2rem;
   }
+
+  /* Reading / Scroll Progress Bar */
+  #scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2.5px;
+    width: 0%;
+    background: linear-gradient(90deg, #10b981, #059669, #34d399);
+    z-index: 100;
+    transition: width 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+  }
+
+  /* Ambient Subtle Background Mesh Glow */
+  .ambient-glow {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1100px;
+    height: 550px;
+    background: radial-gradient(circle 380px at 50% 100px, rgba(16, 185, 129, 0.045), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .dark .ambient-glow {
+    background: radial-gradient(circle 420px at 50% 100px, rgba(16, 185, 129, 0.075), transparent 70%);
+  }
+
+  /* Opening Hero Animation Choreography */
+  @keyframes heroReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .hero-animate {
+    opacity: 0;
+    animation: heroReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform, filter;
+  }
+
+  .hero-delay-1 { animation-delay: 40ms; }
+  .hero-delay-2 { animation-delay: 110ms; }
+  .hero-delay-3 { animation-delay: 180ms; }
+  .hero-delay-4 { animation-delay: 250ms; }
+  .hero-delay-5 { animation-delay: 320ms; }
+  .hero-delay-6 { animation-delay: 390ms; }
+  .hero-delay-photo { animation-delay: 160ms; }
+
+  /* Subtle Ambient Floating for Profile Photo */
+  @keyframes photoPulse {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .profile-card-float {
+    animation: photoPulse 6.5s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Scroll Reveal Component System */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(3px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Stagger delays for grids & cards */
+  .reveal.delay-1 { transition-delay: 60ms; }
+  .reveal.delay-2 { transition-delay: 120ms; }
+  .reveal.delay-3 { transition-delay: 180ms; }
+  .reveal.delay-4 { transition-delay: 240ms; }
+  .reveal.delay-5 { transition-delay: 300ms; }
+  .reveal.delay-6 { transition-delay: 360ms; }
+
+  /* Interactive Spotlight Cards (Linear / Vercel style) */
+  .spotlight-card {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+      rgba(16, 185, 129, 0.08),
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  .spotlight-card:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Micro-interactions: Arrow Links */
+  .arrow-icon {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  a:hover .arrow-icon,
+  button:hover .arrow-icon {
+    transform: translate(2.5px, -2.5px);
+  }
+
+  .arrow-up-icon {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  a:hover .arrow-up-icon {
+    transform: translateY(-3px);
+  }
+
+  /* Tech Skill Pill Micro-interactions */
+  .skill-pill {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+  }
+  .skill-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.06);
+  }
+  .dark .skill-pill:hover {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Button active press feel */
+  a:active, button:active {
+    transform: scale(0.98);
+  }
+
+  /* Accessibility: Prefers Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .hero-animate,
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      animation: none !important;
+    }
+    .profile-card-float {
+      animation: none !important;
+    }
+    .spotlight-card:hover {
+      transform: none !important;
+    }
+  }
 </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-[#0B0F17] dark:text-slate-100 font-sans antialiased transition-colors duration-200">
+<body class="bg-slate-50 text-slate-900 dark:bg-[#0B0F17] dark:text-slate-100 font-sans antialiased transition-colors duration-200 relative overflow-x-hidden">
+
+<!-- Reading / Scroll Progress Bar -->
+<div id="scrollProgress"></div>
+
+<!-- Ambient Subtle Glow -->
+<div class="ambient-glow" aria-hidden="true"></div>
 
 <!-- Header / Navigation -->
 <header class="sticky top-0 z-50 bg-slate-50/85 dark:bg-[#0B0F17]/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80">
@@ -85,7 +282,7 @@
 
       <!-- Resume Button -->
       <a href="Resume.pdf?v=2" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-opacity">
-        Resume ↗
+        Resume <span class="arrow-icon">↗</span>
       </a>
 
       <!-- Mobile Menu Toggle -->
@@ -112,30 +309,30 @@
     <div class="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-10">
       <div class="flex-1 max-w-2xl">
         <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 mb-5">
+        <div class="hero-animate hero-delay-1 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 mb-5">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           Available for SDE Internships (2025–2026)
         </div>
 
-        <h1 class="font-display font-bold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-slate-900 dark:text-white leading-[1.1] mb-4">
+        <h1 class="hero-animate hero-delay-2 font-display font-bold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-slate-900 dark:text-white leading-[1.1] mb-4">
           Swantin Jo Mathew
         </h1>
 
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 font-medium mb-4">
+        <p class="hero-animate hero-delay-3 text-base sm:text-lg text-slate-600 dark:text-slate-400 font-medium mb-4">
           Computer Science Undergraduate @ <span class="text-slate-900 dark:text-slate-200 font-semibold">Govt. Model Engineering College, Kochi</span>
         </p>
 
-        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
+        <p class="hero-animate hero-delay-4 text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
           Full-stack software developer focused on building production-grade web applications, agentic AI systems, and robust data pipelines. Passionate about system design, clean UX architectures, and solving complex algorithmic challenges.
         </p>
 
         <!-- CTAs & Social Links -->
-        <div class="flex flex-wrap items-center gap-3 mb-8">
+        <div class="hero-animate hero-delay-5 flex flex-wrap items-center gap-3 mb-8">
           <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-all shadow-sm">
             Get in touch
           </a>
           <a href="Resume.pdf?v=2" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-300 transition-all">
-            Resume ↗
+            Resume <span class="arrow-icon">↗</span>
           </a>
           <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" aria-label="GitHub Profile" class="p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-300 transition-colors text-slate-700 dark:text-slate-300">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
@@ -150,17 +347,17 @@
         </div>
 
         <!-- Hero Tags -->
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">Full-Stack Development</span>
-          <span class="text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">LangGraph &amp; RAG</span>
-          <span class="text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">Data Engineering</span>
-          <span class="text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">FastAPI &amp; Next.js</span>
+        <div class="hero-animate hero-delay-6 flex flex-wrap gap-2">
+          <span class="skill-pill text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 cursor-default">Full-Stack Development</span>
+          <span class="skill-pill text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 cursor-default">LangGraph &amp; RAG</span>
+          <span class="skill-pill text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 cursor-default">Data Engineering</span>
+          <span class="skill-pill text-xs font-mono px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 cursor-default">FastAPI &amp; Next.js</span>
         </div>
       </div>
 
       <!-- Profile Photo Card -->
-      <div class="relative shrink-0 mx-auto md:mx-0">
-        <div class="relative p-1 rounded-2xl bg-gradient-to-b from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 shadow-xl">
+      <div class="hero-animate hero-delay-photo relative shrink-0 mx-auto md:mx-0">
+        <div class="profile-card-float relative p-1 rounded-2xl bg-gradient-to-b from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 shadow-xl">
           <img src="profile.jpg" alt="Swantin Jo Mathew" class="w-44 h-44 sm:w-52 sm:h-52 object-cover rounded-xl" />
         </div>
         <div class="mt-3 text-center">
@@ -172,24 +369,24 @@
 
   <!-- About Section -->
   <section id="about" class="border-t border-slate-200 dark:border-slate-800/80 py-16">
-    <div class="max-w-page mx-auto px-6">
+    <div class="reveal max-w-page mx-auto px-6">
       <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// about me</p>
       <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white mb-6">Engineering with focus &amp; craftsmanship</h2>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="md:col-span-2 space-y-4 text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+        <div class="reveal delay-1 md:col-span-2 space-y-4 text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
           <p>
             I am a Computer Science undergraduate at <strong>Govt. Model Engineering College, Kochi</strong> (KTU). My core focus lies at the intersection of full-stack web engineering, agentic AI workflows, and distributed data systems.
           </p>
           <p>
-            Rather than relying on superficial AI integrations, I design full-lifecycle software architectures: from automated PDF chunking and vector indexing in Supabase with LangGraph state machines (<a href="#projects" class="text-slate-900 dark:text-slate-100 underline decoration-slate-400">Docent</a>), to automated GitHub API ETL pipelines loading normalized PostgreSQL data warehouses (<a href="#projects" class="text-slate-900 dark:text-slate-100 underline decoration-slate-400">GitHubPulse</a>).
+            Rather than relying on superficial AI integrations, I design full-lifecycle software architectures: from automated PDF chunking and vector indexing in Supabase with LangGraph state machines (<a href="#projects" class="text-slate-900 dark:text-slate-100 underline decoration-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Docent</a>), to automated GitHub API ETL pipelines loading normalized PostgreSQL data warehouses (<a href="#projects" class="text-slate-900 dark:text-slate-100 underline decoration-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">GitHubPulse</a>).
           </p>
           <p>
             Beyond software, I stay active in campus leadership—serving as Venue Manager for <strong>Excel MEC 2025</strong> (MEC's flagship techno-managerial fest) and Sports Vice Secretary for <strong>Chakravyuh 2026</strong>. I also regularly hone my data structures, algorithms, and competitive programming skills.
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3.5 text-xs font-mono">
+        <div class="reveal delay-2 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3.5 text-xs font-mono shadow-sm">
           <p class="text-slate-400 dark:text-slate-500 uppercase tracking-wider font-semibold">// quick facts</p>
           <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
             <span class="text-slate-500">Degree</span>
@@ -219,97 +416,99 @@
   <!-- Technical Skills Section -->
   <section id="skills" class="border-t border-slate-200 dark:border-slate-800/80 py-16 bg-slate-100/50 dark:bg-slate-900/30">
     <div class="max-w-page mx-auto px-6">
-      <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// technical arsenal</p>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white mb-8">Skills &amp; Technologies</h2>
+      <div class="reveal mb-8">
+        <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// technical arsenal</p>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">Skills &amp; Technologies</h2>
+      </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <!-- Languages -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-1 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-blue-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Languages</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Python</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Java</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">C</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">JavaScript</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">SQL</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Python</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Java</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">C</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">JavaScript</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">SQL</span>
           </div>
         </div>
 
         <!-- Frontend -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-2 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Frontend</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Next.js 15</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">React.js</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Tailwind CSS</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">HTML5</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">CSS3</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Next.js 15</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">React.js</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Tailwind CSS</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">HTML5</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">CSS3</span>
           </div>
         </div>
 
         <!-- Backend & APIs -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-3 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Backend &amp; APIs</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">FastAPI</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Node.js</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Express.js</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">RESTful APIs</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">SSE Streaming</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">FastAPI</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Node.js</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Express.js</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">RESTful APIs</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">SSE Streaming</span>
           </div>
         </div>
 
         <!-- AI & Agentic Systems -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-4 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-purple-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">AI &amp; Agentic Systems</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">LangGraph</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">RAG Architectures</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">pgvector</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Gemini API</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Prompt Engineering</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">LangGraph</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">RAG Architectures</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">pgvector</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Gemini API</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Prompt Engineering</span>
           </div>
         </div>
 
         <!-- Databases & Storage -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-5 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Databases &amp; Storage</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">PostgreSQL</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Supabase</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">MySQL</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">DBMS</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Data Modeling</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">PostgreSQL</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Supabase</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">MySQL</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">DBMS</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Data Modeling</span>
           </div>
         </div>
 
         <!-- Data & Developer Tools -->
-        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-6 spotlight-card p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-rose-500"></span>
             <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tools &amp; Data Systems</h3>
           </div>
           <div class="flex flex-wrap gap-1.5">
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">ETL Pipelines</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Git / GitHub</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Postman</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">VS Code</span>
-            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">DSA</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">ETL Pipelines</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Git / GitHub</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">Postman</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">VS Code</span>
+            <span class="skill-pill cursor-default text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium">DSA</span>
           </div>
         </div>
       </div>
@@ -319,19 +518,19 @@
   <!-- Projects Section -->
   <section id="projects" class="border-t border-slate-200 dark:border-slate-800/80 py-16">
     <div class="max-w-page mx-auto px-6">
-      <div class="flex items-center justify-between flex-wrap gap-4 mb-8">
+      <div class="reveal flex items-center justify-between flex-wrap gap-4 mb-8">
         <div>
           <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-1 tracking-wider uppercase">// engineering work</p>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">Featured Projects</h2>
         </div>
         <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1">
-          Explore all repos on GitHub ↗
+          Explore all repos on GitHub <span class="arrow-icon">↗</span>
         </a>
       </div>
 
       <div class="space-y-8">
         <!-- Project 1: Docent -->
-        <article class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
+        <article class="reveal delay-1 spotlight-card rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
           <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-3.5 bg-slate-100/70 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 font-mono text-xs">
             <span class="text-slate-500 dark:text-slate-400">Project #01 — Enterprise Document Intelligence</span>
             <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400 font-medium">Production RAG</span>
@@ -368,23 +567,23 @@
             <!-- Tech Stack & Links -->
             <div class="flex items-center justify-between flex-wrap gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
               <div class="flex flex-wrap gap-1.5">
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Next.js 15</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">FastAPI</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LangGraph</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Supabase (pgvector)</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">PostgreSQL</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Tailwind CSS</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Next.js 15</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">FastAPI</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LangGraph</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Supabase (pgvector)</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">PostgreSQL</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Tailwind CSS</span>
               </div>
               <a href="https://github.com/swantinmathew/pdf-chat-rag" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-4 py-2 rounded-lg bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-opacity">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-                View Repository ↗
+                View Repository <span class="arrow-icon">↗</span>
               </a>
             </div>
           </div>
         </article>
 
         <!-- Project 2: GitHubPulse -->
-        <article class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
+        <article class="reveal delay-2 spotlight-card rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
           <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-3.5 bg-slate-100/70 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 font-mono text-xs">
             <span class="text-slate-500 dark:text-slate-400">Project #02 — Agentic Data Engineering Pipeline</span>
             <span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-400 font-medium">ETL &amp; Analytics</span>
@@ -421,23 +620,23 @@
             <!-- Tech Stack & Links -->
             <div class="flex items-center justify-between flex-wrap gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
               <div class="flex flex-wrap gap-1.5">
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Next.js</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">FastAPI</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LangGraph</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">PostgreSQL</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">GitHub API</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Pandas</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Next.js</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">FastAPI</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LangGraph</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">PostgreSQL</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">GitHub API</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Pandas</span>
               </div>
               <a href="https://github.com/swantinmathew/GiithubPulse" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-4 py-2 rounded-lg bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-opacity">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-                View Repository ↗
+                View Repository <span class="arrow-icon">↗</span>
               </a>
             </div>
           </div>
         </article>
 
         <!-- Project 3: CP Coach -->
-        <article class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
+        <article class="reveal delay-3 spotlight-card rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
           <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-3.5 bg-slate-100/70 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 font-mono text-xs">
             <span class="text-slate-500 dark:text-slate-400">Project #03 — Competitive Programming Analytics</span>
             <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400 font-medium">Full Stack Platform</span>
@@ -474,22 +673,22 @@
             <!-- Tech Stack & Links -->
             <div class="flex items-center justify-between flex-wrap gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
               <div class="flex flex-wrap gap-1.5">
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">React.js</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Node.js</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Express.js</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Gemini API</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Codeforces API</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">React.js</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Node.js</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Express.js</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Gemini API</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Codeforces API</span>
               </div>
               <a href="https://github.com/swantinmathew/cp-coach" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-4 py-2 rounded-lg bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-opacity">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-                View Repository ↗
+                View Repository <span class="arrow-icon">↗</span>
               </a>
             </div>
           </div>
         </article>
 
         <!-- Project 4: SketchFlow -->
-        <article class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
+        <article class="reveal delay-4 spotlight-card rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-all">
           <div class="flex items-center justify-between flex-wrap gap-3 px-6 py-3.5 bg-slate-100/70 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 font-mono text-xs">
             <span class="text-slate-500 dark:text-slate-400">Project #04 — System Diagram Recognition</span>
             <span class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-400 font-medium">Team Collaborative</span>
@@ -522,14 +721,14 @@
             <!-- Tech Stack & Links -->
             <div class="flex items-center justify-between flex-wrap gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
               <div class="flex flex-wrap gap-1.5">
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">React</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Node.js</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">REST APIs</span>
-                <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Tailwind CSS</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">React</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Node.js</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">REST APIs</span>
+                <span class="skill-pill cursor-default text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Tailwind CSS</span>
               </div>
               <a href="https://github.com/swantinmathew/Sketch-Flow" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-4 py-2 rounded-lg bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-opacity">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-                View Repository ↗
+                View Repository <span class="arrow-icon">↗</span>
               </a>
             </div>
           </div>
@@ -541,12 +740,14 @@
   <!-- Leadership & Campus Impact Section -->
   <section id="experience" class="border-t border-slate-200 dark:border-slate-800/80 py-16 bg-slate-100/50 dark:bg-slate-900/30">
     <div class="max-w-page mx-auto px-6">
-      <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// responsibility &amp; initiative</p>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white mb-8">Leadership &amp; Campus Impact</h2>
+      <div class="reveal mb-8">
+        <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// responsibility &amp; initiative</p>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">Leadership &amp; Campus Impact</h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Excel MEC 2025 -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+        <div class="reveal delay-1 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <span class="px-2.5 py-1 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">2025</span>
@@ -561,7 +762,7 @@
         </div>
 
         <!-- Chakravyuh 2026 -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+        <div class="reveal delay-2 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <span class="px-2.5 py-1 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">2026</span>
@@ -576,7 +777,7 @@
         </div>
 
         <!-- College Union 2024 -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+        <div class="reveal delay-3 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <span class="px-2.5 py-1 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">2024</span>
@@ -596,12 +797,14 @@
   <!-- Education & Certifications Section -->
   <section id="education" class="border-t border-slate-200 dark:border-slate-800/80 py-16">
     <div class="max-w-page mx-auto px-6">
-      <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// academics &amp; certifications</p>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white mb-8">Education &amp; Credentials</h2>
+      <div class="reveal mb-8">
+        <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// academics &amp; certifications</p>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">Education &amp; Credentials</h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
         <!-- University -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-1 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="font-mono text-xs font-medium text-brand-600 dark:text-brand-400">2023 – 2027</span>
             <span class="px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400">CGPA: 8.21 / 10.0</span>
@@ -612,7 +815,7 @@
         </div>
 
         <!-- Higher Secondary -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-2 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="font-mono text-xs font-medium text-brand-600 dark:text-brand-400">2020 – 2022</span>
             <span class="px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-400">Score: 96.75%</span>
@@ -623,7 +826,7 @@
         </div>
 
         <!-- High School -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-3 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="font-mono text-xs font-medium text-brand-600 dark:text-brand-400">2020</span>
             <span class="px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-400">Score: 100% Full Marks</span>
@@ -634,7 +837,7 @@
         </div>
 
         <!-- IBM Certification -->
-        <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div class="reveal delay-4 spotlight-card p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="font-mono text-xs font-medium text-brand-600 dark:text-brand-400">Certification</span>
             <span class="px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">IBM SkillsBuild</span>
@@ -650,7 +853,7 @@
   <!-- Contact & Connect Section -->
   <section id="contact" class="border-t border-slate-200 dark:border-slate-800/80 py-16 bg-slate-100/50 dark:bg-slate-900/30">
     <div class="max-w-page mx-auto px-6">
-      <div class="max-w-2xl">
+      <div class="reveal max-w-2xl">
         <p class="font-mono text-xs text-brand-600 dark:text-brand-500 mb-2 tracking-wider uppercase">// connect</p>
         <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Let's build something together.</h2>
         <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
@@ -666,21 +869,21 @@
 
           <!-- Direct Email Mailto -->
           <a href="mailto:swantinjomathew.mec@gmail.com" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-300 transition-all text-slate-800 dark:text-slate-200">
-            Open Mail Client ↗
+            Open Mail Client <span class="arrow-icon">↗</span>
           </a>
 
           <!-- Resume Link -->
           <a href="Resume.pdf?v=2" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-300 transition-all text-slate-800 dark:text-slate-200">
-            View Resume ↗
+            View Resume <span class="arrow-icon">↗</span>
           </a>
         </div>
 
         <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400">
           <a href="https://linkedin.com/in/swantinmathew" target="_blank" rel="noopener" class="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
-            <span>LinkedIn</span> ↗
+            <span>LinkedIn</span> <span class="arrow-icon">↗</span>
           </a>
           <a href="https://github.com/swantinmathew" target="_blank" rel="noopener" class="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
-            <span>GitHub</span> ↗
+            <span>GitHub</span> <span class="arrow-icon">↗</span>
           </a>
           <a href="tel:+918075843779" class="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
             <span>+91 8075843779</span>
@@ -697,7 +900,7 @@
   <div class="flex items-center gap-4">
     <a href="https://github.com/swantinmathew/swantin-portfolio" target="_blank" rel="noopener" class="hover:text-slate-900 dark:hover:text-white transition-colors">Source Code</a>
     <span>·</span>
-    <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Back to top ↑</a>
+    <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1">Back to top <span class="arrow-up-icon">↑</span></a>
   </div>
 </footer>
 
@@ -741,6 +944,51 @@
         }, 2200);
       }).catch(() => {
         window.location.href = `mailto:${emailToCopy}`;
+      });
+    });
+  }
+
+  // Scroll Reveal via IntersectionObserver
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.08
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Scroll / Reading Progress Indicator
+  const progressBar = document.getElementById('scrollProgress');
+  if (progressBar) {
+    const updateProgress = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+  }
+
+  // Dynamic Cursor Spotlight on Cards
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const spotlightCards = document.querySelectorAll('.spotlight-card');
+    spotlightCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
   }
