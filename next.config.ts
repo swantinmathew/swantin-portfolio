@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 
+const isGithubActions = Boolean(process.env.GITHUB_ACTIONS);
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  output: isGithubActions ? "export" : undefined,
+  basePath: isGithubActions ? "/swantin-portfolio" : "",
+  images: {
+    unoptimized: isGithubActions,
+  },
   turbopack: {
     rules: {
       "*.css": {
