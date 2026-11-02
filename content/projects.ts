@@ -41,14 +41,11 @@ export const projects: Project[] = [
       "Stateful LangGraph workflow execution with low-latency SSE token streaming",
     ],
     repoUrl: "https://github.com/swantinmathew/pdf-chat-rag",
-    // TODO: Add live deployment URL when available
-    liveUrl: undefined,
-    // TODO: Add video or screenshot asset (e.g. { type: 'video', src: '/media/docent.mp4', poster: '/media/docent-poster.webp', alt: 'Docent streaming Q&A demo' })
+    liveUrl: "https://pdf-chat-rag-kei5.vercel.app/",
     media: undefined,
     caseStudy: {
       problem:
         "Large, dense technical PDFs require users to manually search through dozens of pages to answer questions. Standard keyword search misses semantic context, while basic single-call LLM approaches suffer from context window limits, hallucinations, and lack of verifiable page citations.",
-      // TODO: Add architecture diagram image (e.g. { src: '/media/docent-architecture.png', alt: 'Docent RAG architecture diagram' })
       architecture: undefined,
       decisions: [
         {
@@ -64,7 +61,6 @@ export const projects: Project[] = [
           body: "Integrated pgvector inside Supabase PostgreSQL. This allowed co-locating vector embeddings alongside document metadata and conversation session tables, eliminating the need to sync state with an external vector store.",
         },
       ],
-      // TODO: Add real measured benchmark metrics if verified (e.g. [{ label: "Avg Latency", value: "320ms" }])
       metrics: undefined,
       learnings: [
         "Stateful LangGraph graphs provide clean boundaries between document retrieval, context validation, and generation nodes.",
@@ -90,16 +86,12 @@ export const projects: Project[] = [
       "Automated GitHub REST API extraction into normalized PostgreSQL warehouse schema",
       "Autonomous LangGraph agent analyzing bus factor risks and review bottlenecks",
     ],
-    // VERIFY: Confirm repo URL spelling (GiithubPulse has a double 'i' in the existing repo)
     repoUrl: "https://github.com/swantinmathew/GiithubPulse",
-    // TODO: Add live deployment URL when available
-    liveUrl: undefined,
-    // TODO: Add video or screenshot asset
+    liveUrl: "https://giithub-pulse-a1nk-k670rzxk1-swant.vercel.app/",
     media: undefined,
     caseStudy: {
       problem:
         "Engineering teams lack simple, self-hosted visibility into developer velocity, code review turnaround times, and repository risk factors like high bus factor on critical files.",
-      // TODO: Add architecture diagram image
       architecture: undefined,
       decisions: [
         {
@@ -111,7 +103,6 @@ export const projects: Project[] = [
           body: "Separated numerical calculations (turnaround distributions, commit velocity) executed deterministically in Pandas from qualitative diagnostic generation in LangGraph, ensuring the agent reasons on verified statistical facts.",
         },
       ],
-      // TODO: Add real measured metrics if verified
       metrics: undefined,
       learnings: [
         "Handling GitHub REST API rate limits requires aggressive token rotation and exponential backoff retry routines.",
@@ -136,14 +127,11 @@ export const projects: Project[] = [
       "AI head-to-head comparison engine with personalized practice curricula",
     ],
     repoUrl: "https://github.com/swantinmathew/cp-coach",
-    // TODO: Add live deployment URL when available
-    liveUrl: undefined,
-    // TODO: Add video or screenshot asset
+    liveUrl: "https://pdf-chat-rag-kei5.vercel.app/",
     media: undefined,
     caseStudy: {
       problem:
         "Competitive programmers frequently plateau in rating because manually identifying patterns across hundreds of past contest submissions is time-consuming, and generic problem sheets do not address specific algorithmic blind spots.",
-      // TODO: Add architecture diagram image
       architecture: undefined,
       decisions: [
         {
@@ -155,7 +143,6 @@ export const projects: Project[] = [
           body: "Enforced strict JSON schema outputs from the Gemini API to reliably generate structured practice roadmaps that frontend components can render without parsing failures.",
         },
       ],
-      // TODO: Add real measured metrics if verified
       metrics: undefined,
       learnings: [
         "Submissions data caching with TTL prevents hitting third-party Codeforces rate caps during repeat profile comparisons.",
@@ -174,14 +161,11 @@ export const projects: Project[] = [
       "Conversational assistant for real-time architecture explanations",
     ],
     repoUrl: "https://github.com/swantinmathew/Sketch-Flow",
-    // TODO: Add live deployment URL when available
-    liveUrl: undefined,
-    // TODO: Add video or screenshot asset
+    liveUrl: "https://sketch-flow-delta.vercel.app/",
     media: undefined,
     caseStudy: {
       problem:
         "Whiteboard architecture sketches created during planning sessions are often lost as static phone photos, requiring time-consuming manual recreation in diagramming software to become editable engineering artifacts.",
-      // TODO: Add architecture diagram image
       architecture: undefined,
       decisions: [
         {
@@ -189,7 +173,6 @@ export const projects: Project[] = [
           body: "Separated freehand pen stroke vectors from recognized structural blocks, allowing users to toggle between raw hand-drawn view and normalized diagram layout without losing original strokes.",
         },
       ],
-      // TODO: Add real measured metrics if verified
       metrics: undefined,
       learnings: [
         "Normalizing touch and stylus inputs across different device pixel ratios is crucial for precise shape detection on the web canvas.",
