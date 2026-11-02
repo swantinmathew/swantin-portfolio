@@ -6,6 +6,7 @@ import { siteConfig } from "@/content/site";
 import { HeroTitleSplit } from "./hero-title-split";
 import { MagneticButton } from "./magnetic-button";
 import { MapPin } from "lucide-react";
+import profilePic from "@/public/profile.jpg";
 
 export function Hero() {
   return (
@@ -29,12 +30,11 @@ export function Hero() {
             {/* Mobile 72px avatar inline beside name */}
             <div className="md:hidden shrink-0">
               <Image
-                src={siteConfig.profileImage}
+                src={profilePic}
                 alt={siteConfig.name}
                 width={72}
                 height={72}
                 priority
-                sizes="72px"
                 className="w-[72px] h-[72px] rounded-full object-cover border-2 border-slate-200 dark:border-slate-800"
               />
             </div>
@@ -120,12 +120,11 @@ export function Hero() {
         <div className="hero-fade-item hidden md:block shrink-0">
           <div className="w-[200px] h-[200px] rounded-[16px] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-[var(--shadow-card)]">
             <Image
-              src={siteConfig.profileImage}
+              src={profilePic}
               alt={siteConfig.name}
               width={200}
               height={200}
               priority
-              sizes="200px"
               className="w-full h-full object-cover"
             />
           </div>

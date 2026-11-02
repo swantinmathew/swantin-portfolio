@@ -23,6 +23,8 @@ export interface SiteConfig {
   }[];
 }
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const siteConfig: SiteConfig = {
   name: "Swantin Jo Mathew",
   role: "Full-Stack Developer & CS Undergraduate",
@@ -35,8 +37,8 @@ export const siteConfig: SiteConfig = {
   github: "https://github.com/swantinmathew",
   linkedin: "https://linkedin.com/in/swantinmathew",
   repo: "https://github.com/swantinmathew/swantin-portfolio",
-  resumeUrl: "/Resume.pdf",
-  profileImage: "/profile.jpg",
+  resumeUrl: `${basePath}/Resume.pdf`,
+  profileImage: `${basePath}/profile.jpg`,
   // TODO: Set your Codeforces handle (e.g. 'swantin') to enable rating & contest stats widget
   codeforcesHandle: undefined,
   about: {

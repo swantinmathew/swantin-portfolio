@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
   output: isGithubActions ? "export" : undefined,
   basePath: isGithubActions ? "/swantin-portfolio" : "",
   images: {
-    unoptimized: isGithubActions,
+    unoptimized: true,
+  },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGithubActions ? "/swantin-portfolio" : "",
   },
   turbopack: {
     rules: {
