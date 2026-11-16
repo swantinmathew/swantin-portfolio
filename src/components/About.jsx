@@ -146,7 +146,7 @@ function About() {
             onClick={replay3DFlip}
             className="about-title about-3d-title editorial-title font-display font-bold text-[clamp(28px,4.5vw,48px)] cursor-pointer select-none text-ink"
           >
-            <span>Crafting purposeful software</span>: bridging clean architecture, applied AI, &amp; enterprise systems.
+            <span>Crafting purposeful software</span>: bridging clean architecture, full-stack systems, &amp; applied AI.
           </h2>
         </div>
 
@@ -162,7 +162,7 @@ function About() {
               <strong className="text-ink font-semibold">Technical Analyst Intern</strong> at Vijayarajan &amp; Associates, Chartered Accountants.
             </p>
             <p className="about-narrative-p z-3d-item">
-              My engineering focus spans two complementary realms: building reliable enterprise systems with Python, Frappe, and ERPNext to streamline critical business workflows, and developing modern full-stack web applications backed by agentic AI, LangGraph, and PostgreSQL.
+              My engineering focus centers on building reliable full-stack applications, scalable backend APIs, and agentic AI systems. I work extensively with Python, React, Next.js, FastAPI, and PostgreSQL, alongside hands-on industry exposure building custom workflows and data pipelines in my internship.
             </p>
             <div className="about-narrative-p z-3d-item pt-2 flex flex-wrap gap-2">
               <span className="font-mono text-xs px-3 py-1.5 rounded-full bg-accent-soft text-accent border border-accent/20 font-medium">

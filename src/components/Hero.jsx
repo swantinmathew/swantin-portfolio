@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CustomEase } from "gsap/CustomEase";
 import { SplitText } from "gsap/SplitText";
-import { splitTextIntoChars, animate3DFlip } from "../utils/splitTextHelper";
 import "./Hero.css";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText);
@@ -29,31 +28,21 @@ const ROWS = [
 const AMBIENT_WORDS = [
   // Top right header band
   { text: "FASTAPI", top: "5%", left: "48%", speed: 0.2 },
-  { text: "FRAPPE", top: "6%", left: "68%", speed: 0.35 },
-  { text: "ERPNEXT", top: "5%", right: "4%", speed: 0.3 },
+  { text: "TYPESCRIPT", top: "6%", left: "68%", speed: 0.35 },
+  { text: "DOCKER", top: "5%", right: "4%", speed: 0.3 },
 
   // Right column outer margins
-  { text: "POSTGRESQL", top: "14%", right: "2%", speed: 0.45 },
-  { text: "LANGGRAPH", top: "22%", right: "12%", speed: 0.35 },
-  { text: "SQL PIPELINES", top: "34%", right: "2%", speed: 0.2 },
-  { text: "CLEAN CODE", top: "44%", right: "1%", speed: 0.3 },
-  { text: "PYTHON", top: "54%", right: "2%", speed: 0.4 },
-  { text: "DATA ENGINEERING", top: "66%", right: "3%", speed: 0.3 },
-  { text: "REST APIS", top: "78%", right: "4%", speed: 0.4 },
-  { text: "MEC '27", top: "90%", right: "5%", speed: 0.35 },
+  { text: "POSTGRESQL", top: "15%", right: "3%", speed: 0.45 },
+  { text: "LANGGRAPH", top: "24%", right: "12%", speed: 0.35 },
+  { text: "REST APIS", top: "82%", right: "5%", speed: 0.4 },
+  { text: "MEC '27", top: "92%", right: "6%", speed: 0.35 },
 
   // Left column outer margin (far left edge)
-  { text: "REACT", top: "24%", left: "1%", speed: 0.3 },
-  { text: "NEXT.JS", top: "40%", left: "1%", speed: 0.25 },
-  { text: "ALGORITHMS", top: "54%", left: "1%", speed: 0.35 },
-  { text: "DATA STRUCTURES", top: "68%", left: "1%", speed: 0.25 },
-  { text: "HIGH PERFORMANCE", top: "82%", left: "1%", speed: 0.35 },
-  { text: "FULL-STACK", top: "94%", left: "2%", speed: 0.25 },
-
-  // Bottom center
-  { text: "PROBLEM SOLVER", top: "94%", left: "22%", speed: 0.4 },
-  { text: "ENTERPRISE ERP", top: "94%", left: "44%", speed: 0.35 },
-  { text: "SWANTIN JO MATHEW", top: "94%", right: "22%", speed: 0.3 },
+  { text: "REACT", top: "26%", left: "1%", speed: 0.3 },
+  { text: "NEXT.JS", top: "42%", left: "1%", speed: 0.25 },
+  { text: "ALGORITHMS", top: "56%", left: "1%", speed: 0.35 },
+  { text: "DATA STRUCTURES", top: "72%", left: "2%", speed: 0.25 },
+  { text: "HIGH PERFORMANCE", top: "88%", left: "2%", speed: 0.35 },
 ];
 
 const ALTERNATIVE_TEXTS = {
@@ -67,7 +56,7 @@ const ALTERNATIVE_TEXTS = {
     "PYTHON": "CLEAN SYNTAX",
     "SYSTEM DESIGN": "ARCHITECTURE",
     "GEMINI AI": "INTELLIGENCE",
-    "ENTERPRISE ERP": "WORKFLOWS",
+    "TYPESCRIPT": "TYPE SAFETY",
     "CLEAN CODE": "SOLID CODE",
     "HIGH PERFORMANCE": "COMPILED",
     "DATA ENGINEERING": "PIPELINES",
@@ -90,7 +79,7 @@ const ALTERNATIVE_TEXTS = {
     "PYTHON": "PRODUCTION RUN",
     "SYSTEM DESIGN": "CLOUD DEPLOY",
     "GEMINI AI": "INFERENCE",
-    "ENTERPRISE ERP": "PRODUCTION",
+    "TYPESCRIPT": "PRODUCTION",
     "CLEAN CODE": "CI/CD GREEN",
     "HIGH PERFORMANCE": "LOW LATENCY",
     "DATA ENGINEERING": "ETL PIPELINES",
@@ -113,7 +102,7 @@ const ALTERNATIVE_TEXTS = {
     "PYTHON": "VECTORIZED",
     "SYSTEM DESIGN": "FAULT TOLERANT",
     "GEMINI AI": "FINE TUNED",
-    "ENTERPRISE ERP": "RELIABLE",
+    "TYPESCRIPT": "STRICT TYPING",
     "CLEAN CODE": "DRY & TESTABLE",
     "HIGH PERFORMANCE": "SUB-MILLISEC",
     "DATA ENGINEERING": "OPTIMIZED",
@@ -130,7 +119,7 @@ const ALTERNATIVE_TEXTS = {
 
 function Hero() {
   const containerRef = useRef(null);
-  const [activeRow, setActiveRow] = useState(null);
+  const [activeRow, setActiveRow] = useState("build");
 
   useEffect(() => {
     const container = containerRef.current;
@@ -140,7 +129,7 @@ function Hero() {
     const mouseEase = CustomEase.get("mouseEase") ? "mouseEase" : "power2.out";
 
     const state = {
-      activeRowId: null,
+      activeRowId: "build",
       textRevealAnimation: null,
       kineticAnimationActive: false,
       activeKineticAnimation: null,
@@ -242,10 +231,14 @@ function Hero() {
               char.appendChild(innerSpan);
             }
 
-            char.style.width = `${charWidth}px`;
-            char.style.maxWidth = `${charWidth}px`;
+            const hoverWidth = charWidth * 1.35;
             char.dataset.charWidth = charWidth;
-            char.dataset.hoverWidth = charWidth * 1.35;
+            char.dataset.hoverWidth = hoverWidth;
+
+            const isCurrentActive = state.activeRowId === rowId;
+            const w = isCurrentActive ? hoverWidth : charWidth;
+            char.style.width = `${w}px`;
+            char.style.maxWidth = `${w}px`;
           } else {
             const tempSpan = document.createElement("span");
             tempSpan.style.position = "absolute";
@@ -261,9 +254,9 @@ function Hero() {
 
             const fontSizeValue = parseFloat(currentFontSize);
             const fontSizeRatio = fontSizeValue / 140;
-            const padding = 10 * fontSizeRatio;
 
-            charWidth = Math.max(actualWidth + padding, 32 * fontSizeRatio);
+            // Inactive width: compact slice proportion
+            charWidth = Math.max(actualWidth * 0.42, 28 * fontSizeRatio);
 
             if (!char.querySelector(".hero-char-inner") && charText) {
               char.textContent = "";
@@ -273,12 +266,15 @@ function Hero() {
               char.appendChild(innerSpan);
             }
 
-            char.style.width = `${charWidth}px`;
-            char.style.maxWidth = `${charWidth}px`;
+            // Hover / active width: full character width with breathing room
+            const hoverWidth = Math.max(actualWidth + 20 * fontSizeRatio, 72 * fontSizeRatio);
+            char.dataset.hoverWidth = hoverWidth;
             char.dataset.charWidth = charWidth;
 
-            const hoverWidth = Math.max(charWidth * 1.75, 75 * fontSizeRatio);
-            char.dataset.hoverWidth = hoverWidth;
+            const isCurrentActive = state.activeRowId === rowId;
+            const w = isCurrentActive ? hoverWidth : charWidth;
+            char.style.width = `${w}px`;
+            char.style.maxWidth = `${w}px`;
           }
 
           char.style.setProperty("--char-index", i);
@@ -318,14 +314,6 @@ function Hero() {
       duration: 0.85,
       ease,
       delay: 0.1,
-    });
-
-    gsap.from(".hero-ambient-header, .hero-bio-block", {
-      opacity: 0,
-      y: 20,
-      duration: 0.85,
-      ease,
-      delay: 0.35,
     });
 
     // 4. Profile Photo Initial Window Reveal
@@ -571,11 +559,12 @@ function Hero() {
 
     // 7. Row Activation & Deactivation
     function activateRow(row) {
+      if (!row) return;
       const rowId = row.dataset.rowId;
-      if (state.activeRowId === rowId) return;
+      if (state.activeRowId === rowId && row.classList.contains("active")) return;
 
       const previousActive = container.querySelector(".hero-text-row.active");
-      if (previousActive) {
+      if (previousActive && previousActive !== row) {
         deactivateRow(previousActive, true);
       }
 
@@ -599,7 +588,7 @@ function Hero() {
       timeline.to(
         chars,
         {
-          maxWidth: (i, target) => parseFloat(target.dataset.hoverWidth),
+          maxWidth: (i, target) => parseFloat(target.dataset.hoverWidth) || 90,
           duration: 0.64,
           stagger: 0.04,
           ease,
@@ -610,16 +599,17 @@ function Hero() {
       timeline.to(
         innerSpans,
         {
-          x: -28,
+          x: 0,
           duration: 0.64,
           stagger: 0.04,
           ease,
         },
-        0.04
+        0
       );
     }
 
     function deactivateRow(row, isSwitching = false) {
+      if (!row) return;
       const rowId = row.dataset.rowId;
       row.classList.remove("active");
 
@@ -653,12 +643,12 @@ function Hero() {
       timeline.to(
         chars,
         {
-          maxWidth: (i, target) => parseFloat(target.dataset.charWidth),
+          maxWidth: (i, target) => parseFloat(target.dataset.charWidth) || 32,
           duration: 0.55,
           stagger: 0.03,
           ease,
         },
-        0.04
+        0
       );
     }
 
@@ -668,21 +658,31 @@ function Hero() {
       if (!area) return;
 
       area.addEventListener("mouseenter", () => activateRow(row));
-      area.addEventListener("mouseleave", () => {
-        if (state.activeRowId === row.dataset.rowId) {
-          deactivateRow(row);
-        }
-      });
 
       // Mobile touch / click toggle
       area.addEventListener("click", () => {
-        if (state.activeRowId === row.dataset.rowId) {
-          deactivateRow(row);
-        } else {
-          activateRow(row);
-        }
+        activateRow(row);
       });
     });
+
+    // When mouse leaves the whole typography container, revert to "build" as default
+    const slicedContainer = container.querySelector(".hero-sliced-container");
+    if (slicedContainer) {
+      slicedContainer.addEventListener("mouseleave", () => {
+        const buildRow = container.querySelector('.hero-text-row[data-row-id="build"]');
+        if (buildRow && state.activeRowId !== "build") {
+          activateRow(buildRow);
+        }
+      });
+    }
+
+    // Default activate row "build" on initial mount so BUILD is immediately expanded
+    const defaultBuildRow = container.querySelector('.hero-text-row[data-row-id="build"]');
+    if (defaultBuildRow) {
+      setTimeout(() => {
+        activateRow(defaultBuildRow);
+      }, 60);
+    }
 
     // 8. Mouse Parallax on Ambient Keywords
     let lastParallaxTime = 0;
@@ -797,7 +797,7 @@ function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[90vh] flex flex-col justify-between py-6 px-6 overflow-hidden max-w-[1240px] mx-auto select-none"
+      className="relative min-h-[92vh] flex flex-col justify-center py-8 px-6 overflow-hidden max-w-[1240px] mx-auto select-none"
     >
       {/* Layer 1: Atmospheric Glow Swatches */}
       <div className="hero-glow-layer default" data-glow-id="default"></div>
@@ -838,38 +838,26 @@ function Hero() {
         <div className="hero-type-line even">build build build build</div>
       </div>
 
-      {/* TOP HEADER: Editorial metadata */}
-      <div className="hero-ambient-header relative z-20 flex items-center justify-between border-b border-line/60 pb-3 text-xs font-mono text-ink-faint tracking-wider mb-6">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse shadow-sm shadow-accent/50"></span>
-          <span className="font-semibold text-ink">SWANTIN JO MATHEW — PORTFOLIO</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-4">
-          <span className="font-bold text-ink">[ 00 ] INTRODUCTION</span>
-          <span className="text-accent font-medium">✦ CS UNDERGRAD &amp; FULL-STACK DEVELOPER</span>
-        </div>
-      </div>
-
-      {/* MAIN STAGE: 2-Column Grid (Sliced Typography & Bio on Left, Prominent Photo Card Cluster on Right) */}
+      {/* MAIN STAGE: 2-Column Grid (Ghost Name + Sliced Typography on Left, Photo Card Cluster on Right) */}
       <div className="relative z-20 my-auto grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-14 items-center">
         
-        {/* Left Column: Sliced Interactive Typography + Bio + CTAs */}
+        {/* Left Column: Ghost Name + Sliced Interactive Typography */}
         <div className="flex flex-col justify-center">
-          {/* Notable Name Header */}
-          <div className="hero-name-header mb-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-line shadow-2xs mb-3">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-sm shadow-accent/50"></span>
-              <span className="font-mono text-xs font-bold text-ink uppercase tracking-wider">PORTFOLIO OF</span>
+          {/* Faint Ghost Name Header (matches reference screenshot) */}
+          <div className="hero-name-header mb-4 select-none">
+            <div className="flex items-center gap-2 font-mono text-xs text-accent tracking-widest uppercase mb-1">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              <span>• PORTFOLIO OF</span>
             </div>
-            <h1 className="hero-name-title font-display font-black text-[clamp(2.4rem,4.4vw,4.2rem)] leading-[1.05] tracking-tight text-ink select-none">
-              Swantin Jo Mathew<span className="text-accent">.</span>
+            <h1 className="hero-name-title font-display font-black text-[clamp(2.5rem,4.5vw,4.2rem)] leading-[1.02] tracking-tight">
+              Swantin Jo Mathew<span className="text-accent/60">.</span>
             </h1>
             <p className="font-mono text-xs text-ink-faint tracking-wider mt-1">
-              COMPUTER SCIENCE UNDERGRADUATE · FULL-STACK DEVELOPER & PROBLEM SOLVER
+              COMPUTER SCIENCE UNDERGRADUATE · FULL-STACK DEVELOPER &amp; PROBLEM SOLVER
             </p>
           </div>
 
-          <p className="font-mono text-xs text-ink-faint tracking-wider mb-1.5 mt-2">
+          <p className="font-mono text-xs text-ink-faint tracking-wider mb-2 select-none">
             // INTERACTIVE CORE —
           </p>
 
@@ -890,34 +878,6 @@ function Hero() {
                 ></div>
               </div>
             ))}
-          </div>
-
-          {/* Bio & CTAs */}
-          <div className="hero-bio-block border-t border-line/60 pt-5 max-w-[560px]">
-            <h2 className="font-display font-bold text-xl md:text-2xl text-ink tracking-tight mb-2">
-              Let's engineer <span className="text-accent">something real.</span>
-            </h2>
-            <p className="text-ink-soft text-sm md:text-base leading-relaxed mb-5">
-              I'm Swantin Jo Mathew — a Computer Science undergraduate at Model Engineering College and Technical Analyst Intern. I engineer custom enterprise ERP modules, full-stack web platforms, and agentic AI systems.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#work"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-ink text-page hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                See my work →
-              </a>
-              <a
-                href="#experience"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-0.5 transition-all bg-surface/70 backdrop-blur-xs text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                Experience & Journey →
-              </a>
-              <span className="font-mono text-xs text-accent bg-accent-soft/70 border border-accent/20 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
-                Ongoing: Tech Analyst Intern @ V&A
-              </span>
-            </div>
           </div>
         </div>
 

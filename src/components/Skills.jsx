@@ -42,7 +42,7 @@ const TRACK_3 = [
 const FILTERS = [
   { id: "all", label: "ALL ARSENAL" },
   { id: "ai", label: "AI & RAG" },
-  { id: "backend", label: "BACKEND & ERP" },
+  { id: "backend", label: "BACKEND & APIS" },
   { id: "frontend", label: "FRONTEND" },
   { id: "algorithms", label: "ALGORITHMS & CORE" },
   { id: "databases", label: "DATABASES & SQL" },
