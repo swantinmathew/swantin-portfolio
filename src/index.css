@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #E4F2E9;
+  color: #15181D;
+}
+
+.section-label::before {
+  content: "// ";
+}
+
+/* GSAP Parallax & SplitText utilities */
+.split-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.split-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.editorial-title {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.editorial-title span {
+  color: #1E8E5A;
+}
+
+.editorial-caption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.editorial-caption span {
+  color: #1E8E5A;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.cluster-piece {
+  will-change: transform;
+}
+
+/* 3D Character Flip Animation (Abstracted from CodePen) */
+.about-3d-container,
+.perspective-stage {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.z-3d-item {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.about-3d-title {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.about-3d-word {
+  display: inline-block;
+  white-space: nowrap;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.about-3d-char {
+  display: inline-block;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Custom subtle scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(21, 24, 29, 0.2);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(21, 24, 29, 0.4);
+}
