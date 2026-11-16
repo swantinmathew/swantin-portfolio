@@ -26,23 +26,21 @@ const ROWS = [
 ];
 
 const AMBIENT_WORDS = [
-  // Top right header band
-  { text: "FASTAPI", top: "5%", left: "48%", speed: 0.2 },
-  { text: "TYPESCRIPT", top: "6%", left: "68%", speed: 0.35 },
-  { text: "DOCKER", top: "5%", right: "4%", speed: 0.3 },
+  // Top header perimeter
+  { text: "FASTAPI", top: "2%", left: "44%", speed: 0.2 },
+  { text: "TYPESCRIPT", top: "3%", left: "64%", speed: 0.35 },
+  { text: "DOCKER", top: "2%", right: "6%", speed: 0.3 },
 
-  // Right column outer margins
-  { text: "POSTGRESQL", top: "15%", right: "3%", speed: 0.45 },
-  { text: "LANGGRAPH", top: "24%", right: "12%", speed: 0.35 },
-  { text: "REST APIS", top: "82%", right: "5%", speed: 0.4 },
+  // Right column outer margins (around photo card)
+  { text: "POSTGRESQL", top: "16%", right: "2%", speed: 0.45 },
+  { text: "LANGGRAPH", top: "26%", right: "12%", speed: 0.35 },
+  { text: "REST APIS", top: "82%", right: "4%", speed: 0.4 },
   { text: "MEC '27", top: "92%", right: "6%", speed: 0.35 },
 
-  // Left column outer margin (far left edge)
-  { text: "REACT", top: "26%", left: "1%", speed: 0.3 },
-  { text: "NEXT.JS", top: "42%", left: "1%", speed: 0.25 },
-  { text: "ALGORITHMS", top: "56%", left: "1%", speed: 0.35 },
-  { text: "DATA STRUCTURES", top: "72%", left: "2%", speed: 0.25 },
-  { text: "HIGH PERFORMANCE", top: "88%", left: "2%", speed: 0.35 },
+  // Far left upper edge (safe above the bio & buttons)
+  { text: "REACT", top: "12%", left: "1%", speed: 0.3 },
+  { text: "NEXT.JS", top: "28%", left: "1%", speed: 0.25 },
+  { text: "ALGORITHMS", top: "42%", left: "1%", speed: 0.35 },
 ];
 
 const ALTERNATIVE_TEXTS = {
@@ -221,7 +219,7 @@ function Hero() {
 
           if (isMobile) {
             const fontSizeValue = parseFloat(currentFontSize);
-            charWidth = fontSizeValue * 0.62;
+            charWidth = fontSizeValue * 0.65;
 
             if (!char.querySelector(".hero-char-inner") && charText) {
               char.textContent = "";
@@ -255,8 +253,8 @@ function Hero() {
             const fontSizeValue = parseFloat(currentFontSize);
             const fontSizeRatio = fontSizeValue / 140;
 
-            // Inactive width: compact slice proportion
-            charWidth = Math.max(actualWidth * 0.42, 28 * fontSizeRatio);
+            // Inactive width: full intact character width with minimal padding (never cuts glyphs!)
+            charWidth = Math.max(actualWidth + 6 * fontSizeRatio, 36 * fontSizeRatio);
 
             if (!char.querySelector(".hero-char-inner") && charText) {
               char.textContent = "";
@@ -266,8 +264,8 @@ function Hero() {
               char.appendChild(innerSpan);
             }
 
-            // Hover / active width: full character width with breathing room
-            const hoverWidth = Math.max(actualWidth + 20 * fontSizeRatio, 72 * fontSizeRatio);
+            // Hover / active width: expansive letter spacing with breathing room
+            const hoverWidth = Math.max(actualWidth + 28 * fontSizeRatio, 78 * fontSizeRatio);
             char.dataset.hoverWidth = hoverWidth;
             char.dataset.charWidth = charWidth;
 
@@ -314,6 +312,14 @@ function Hero() {
       duration: 0.85,
       ease,
       delay: 0.1,
+    });
+
+    gsap.from(".hero-bio-block", {
+      opacity: 0,
+      y: 20,
+      duration: 0.85,
+      ease,
+      delay: 0.35,
     });
 
     // 4. Profile Photo Initial Window Reveal
@@ -486,23 +492,6 @@ function Hero() {
         "+=0.38"
       );
 
-      timeline.call(() => {
-        backgroundTextItems.forEach((item) => {
-          item.classList.remove("highlight");
-          item.classList.add("highlight-reverse");
-        });
-      });
-
-      timeline.call(
-        () => {
-          backgroundTextItems.forEach((item) => {
-            item.classList.remove("highlight-reverse");
-          });
-        },
-        null,
-        "+=0.38"
-      );
-
       timeline.to(backgroundTextItems, {
         opacity: 0.65,
         duration: 0.35,
@@ -515,41 +504,19 @@ function Hero() {
     function resetBackgroundTextWithAnimation() {
       const timeline = gsap.timeline();
 
-      timeline.call(() => {
-        backgroundTextItems.forEach((item) => {
-          item.classList.add("highlight");
-        });
-      });
-
       timeline.call(
         () => {
           backgroundTextItems.forEach((item) => {
             item.textContent = item.dataset.originalText;
+            item.classList.remove("highlight");
           });
         },
         null,
-        "+=0.38"
-      );
-
-      timeline.call(() => {
-        backgroundTextItems.forEach((item) => {
-          item.classList.remove("highlight");
-          item.classList.add("highlight-reverse");
-        });
-      });
-
-      timeline.call(
-        () => {
-          backgroundTextItems.forEach((item) => {
-            item.classList.remove("highlight-reverse");
-          });
-        },
-        null,
-        "+=0.38"
+        "+=0.2"
       );
 
       timeline.to(backgroundTextItems, {
-        opacity: 0.45,
+        opacity: 0.22,
         duration: 0.4,
         ease,
       });
@@ -588,9 +555,9 @@ function Hero() {
       timeline.to(
         chars,
         {
-          maxWidth: (i, target) => parseFloat(target.dataset.hoverWidth) || 90,
-          duration: 0.64,
-          stagger: 0.04,
+          maxWidth: (i, target) => parseFloat(target.dataset.hoverWidth) || 80,
+          duration: 0.55,
+          stagger: 0.03,
           ease,
         },
         0
@@ -600,8 +567,8 @@ function Hero() {
         innerSpans,
         {
           x: 0,
-          duration: 0.64,
-          stagger: 0.04,
+          duration: 0.55,
+          stagger: 0.03,
           ease,
         },
         0
@@ -633,8 +600,8 @@ function Hero() {
         innerSpans,
         {
           x: 0,
-          duration: 0.55,
-          stagger: 0.03,
+          duration: 0.45,
+          stagger: 0.02,
           ease,
         },
         0
@@ -643,9 +610,9 @@ function Hero() {
       timeline.to(
         chars,
         {
-          maxWidth: (i, target) => parseFloat(target.dataset.charWidth) || 32,
-          duration: 0.55,
-          stagger: 0.03,
+          maxWidth: (i, target) => parseFloat(target.dataset.charWidth) || 36,
+          duration: 0.45,
+          stagger: 0.02,
           ease,
         },
         0
@@ -665,7 +632,7 @@ function Hero() {
       });
     });
 
-    // When mouse leaves the whole typography container, revert to "build" as default
+    // When mouse leaves the whole typography container, revert smoothly to "build"
     const slicedContainer = container.querySelector(".hero-sliced-container");
     if (slicedContainer) {
       slicedContainer.addEventListener("mouseleave", () => {
@@ -797,7 +764,7 @@ function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[92vh] flex flex-col justify-center py-8 px-6 overflow-hidden max-w-[1240px] mx-auto select-none"
+      className="relative min-h-[92vh] flex flex-col justify-center py-6 md:py-10 px-6 overflow-hidden max-w-[1240px] mx-auto select-none"
     >
       {/* Layer 1: Atmospheric Glow Swatches */}
       <div className="hero-glow-layer default" data-glow-id="default"></div>
@@ -805,7 +772,7 @@ function Hero() {
       <div className="hero-glow-layer ship" data-glow-id="ship"></div>
       <div className="hero-glow-layer solve" data-glow-id="solve"></div>
 
-      {/* Layer 2: Floating Ambient Technical Keywords */}
+      {/* Layer 2: Floating Ambient Technical Keywords (positioned strictly in outer periphery) */}
       <div className="hero-text-background" aria-hidden="true">
         {AMBIENT_WORDS.map((item, idx) => (
           <div
@@ -838,31 +805,31 @@ function Hero() {
         <div className="hero-type-line even">build build build build</div>
       </div>
 
-      {/* MAIN STAGE: 2-Column Grid (Ghost Name + Sliced Typography on Left, Photo Card Cluster on Right) */}
-      <div className="relative z-20 my-auto grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-14 items-center">
+      {/* MAIN STAGE: 2-Column Grid matching Picture 1 Layout with Picture 2 Animation */}
+      <div className="relative z-20 my-auto grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-14 items-center">
         
-        {/* Left Column: Ghost Name + Sliced Interactive Typography */}
-        <div className="flex flex-col justify-center">
-          {/* Faint Ghost Name Header (matches reference screenshot) */}
-          <div className="hero-name-header mb-4 select-none">
-            <div className="flex items-center gap-2 font-mono text-xs text-accent tracking-widest uppercase mb-1">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-              <span>• PORTFOLIO OF</span>
+        {/* Left Column: Notable Name Header + Sliced Typography + Bio & CTAs */}
+        <div className="flex flex-col justify-center max-w-[620px]">
+          {/* Notable Name Header (prominent and crisp, matching reference) */}
+          <div className="hero-name-header mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-line shadow-2xs mb-2">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-sm shadow-accent/50"></span>
+              <span className="font-mono text-xs font-bold text-ink uppercase tracking-wider">PORTFOLIO OF</span>
             </div>
-            <h1 className="hero-name-title font-display font-black text-[clamp(2.5rem,4.5vw,4.2rem)] leading-[1.02] tracking-tight">
-              Swantin Jo Mathew<span className="text-accent/60">.</span>
+            <h1 className="hero-name-title font-display font-black text-[clamp(2.3rem,4.2vw,3.9rem)] leading-[1.05] tracking-tight text-ink select-none">
+              Swantin Jo Mathew<span className="text-accent">.</span>
             </h1>
-            <p className="font-mono text-xs text-ink-faint tracking-wider mt-1">
+            <p className="font-mono text-xs text-ink-faint tracking-wider mt-1 select-none">
               COMPUTER SCIENCE UNDERGRADUATE · FULL-STACK DEVELOPER &amp; PROBLEM SOLVER
             </p>
           </div>
 
-          <p className="font-mono text-xs text-ink-faint tracking-wider mb-2 select-none">
+          <p className="font-mono text-xs text-ink-faint tracking-wider mb-1 mt-2 select-none">
             // INTERACTIVE CORE —
           </p>
 
-          {/* Sliced Typography */}
-          <div className="hero-sliced-container">
+          {/* Sliced Typography with Smooth GSAP Hover Animation (Letters stay 100% complete & legible) */}
+          <div className="hero-sliced-container my-1">
             {ROWS.map((row) => (
               <div
                 key={row.id}
@@ -878,6 +845,34 @@ function Hero() {
                 ></div>
               </div>
             ))}
+          </div>
+
+          {/* Bio & CTAs (clean, full-stack & AI focused, no overlapping ambient text) */}
+          <div className="hero-bio-block border-t border-line/60 pt-4 mt-3 relative z-20">
+            <h2 className="font-display font-bold text-lg md:text-xl text-ink tracking-tight mb-1.5">
+              Let's engineer <span className="text-accent">something real.</span>
+            </h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
+              I'm Swantin Jo Mathew — a Computer Science undergraduate at Model Engineering College and Technical Analyst Intern. I engineer scalable full-stack web applications, backend APIs, and agentic AI systems.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold bg-ink text-page hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                See my work →
+              </a>
+              <a
+                href="#experience"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-medium border border-line-strong hover:border-ink hover:-translate-y-0.5 transition-all bg-surface/70 backdrop-blur-xs text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                Experience &amp; Journey →
+              </a>
+              <span className="font-mono text-[11px] text-accent bg-accent-soft/70 border border-accent/20 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                Ongoing: Tech Analyst Intern @ V&amp;A
+              </span>
+            </div>
           </div>
         </div>
 
