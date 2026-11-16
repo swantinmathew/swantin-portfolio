@@ -62,7 +62,6 @@
   font-weight: 600;
 }
 
-/* Eliminated solid green block overlay tape that covered text and buttons */
 .hero-text-item::after {
   display: none !important;
 }
@@ -77,23 +76,11 @@
   user-select: none;
 }
 
-/* Notable Name Header Styling matching reference */
-.hero-name-header {
-  opacity: 1;
-  user-select: none;
-}
-
-.hero-name-title {
-  letter-spacing: -0.035em;
-  color: #15181D;
-  display: block;
-}
-
 .hero-text-row {
   position: relative;
   width: 100%;
-  height: 74px;
-  margin: 1px 0;
+  height: clamp(82px, 10.5vh, 104px);
+  margin: 2px 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -113,7 +100,7 @@
 
 .hero-text-content {
   position: relative;
-  font-size: clamp(2.8rem, 5.2vw, 4.6rem);
+  font-size: clamp(3.4rem, 6.2vw, 5.8rem);
   font-weight: 900;
   font-family: 'Space Grotesk', sans-serif;
   text-transform: uppercase;
@@ -123,7 +110,7 @@
   justify-content: flex-start;
   z-index: 1;
   color: #15181D;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
   transition: letter-spacing 0.5s cubic-bezier(0.86, 0, 0.07, 1);
   visibility: hidden;
@@ -144,7 +131,7 @@
 .hero-char {
   display: inline-block;
   position: relative;
-  overflow: visible; /* Prevent cutting glyphs in half into unreadable shapes */
+  overflow: visible;
   transition: max-width 0.5s cubic-bezier(0.86, 0, 0.07, 1);
   margin-right: 0px;
 }
@@ -227,11 +214,11 @@
 @media screen and (max-width: 1024px) {
   .hero-text-row {
     justify-content: center;
-    height: 70px;
+    height: 76px;
   }
   .hero-text-content {
     justify-content: center;
-    font-size: clamp(2.6rem, 8vw, 4.2rem);
+    font-size: clamp(2.8rem, 8.5vw, 4.6rem);
   }
   .hero-type-line {
     font-size: clamp(3.5rem, 9vh, 7rem);
@@ -240,10 +227,10 @@
 
 @media screen and (max-width: 640px) {
   .hero-text-content {
-    font-size: clamp(2.2rem, 11vw, 3.4rem);
+    font-size: clamp(2.4rem, 12vw, 3.8rem);
   }
   .hero-text-row {
-    height: 56px;
+    height: 60px;
     margin: 1px 0;
   }
   .hero-type-line {
